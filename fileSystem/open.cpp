@@ -8,8 +8,8 @@ short open(int user_id, char *filename,char openmode){
 
 	dinodeid = namei(filename);
 	if (dinodeid <= 0){
-		printf("\nfile does not existed!!!\n");
-		return -1;
+		//printf("\nfile does not existed!!!\n");
+		return -3;
 	}
 	inode = iget(dir.direct[dinodeid].d_ino);
 	if (!(inode->di_mode &DIFILE)){
