@@ -117,7 +117,18 @@ int shell(int user_id,char *str){
 		}
 		sscanf(token,"%d",&size);
 		fd = open(user_id,tstr,READ);
-		if(fd<0) break;
+		if(fd<0) {
+			if(fd==-3){
+				mode = mode|DIFILE|0700;
+				fd = creat(user_id,tstr,mode);
+				mode = WRITE;
+				if(fd == -1){
+					printf("创建文件失败！\n");
+					break;
+				}
+			}
+			else break;
+		}
 		buf = (char*)malloc(size+1);
 		size = read(fd,buf,size);
 		printf("%d bytes have been read in buf from file %s.\n",size,tstr);
